@@ -163,7 +163,7 @@ The AI model analyzes these factors and predicts the expected number of accident
 ### Option 1: Streamlit Cloud (Recommended - Already Live!)
 
 The app is already deployed at:
-🌐 https://road-accident-vseuhvwqersrexrv7fxncg.streamlit.app/
+🌐 [Click Here to play](https://road-accident-game.streamlit.app/)
 
 ### Option 2: Local Deployment
 
