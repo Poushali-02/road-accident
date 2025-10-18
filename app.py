@@ -186,7 +186,7 @@ def start_game():
         pred2 = prediction(preprocess(scenario2))
 
         # Ensure predictions differ by at least 0.5 (adjust threshold as needed)
-        if abs(pred1 - pred2) > 0.5:
+        if abs(pred1 - pred2) > 0.05:
             break
     
     # Store in session state
