@@ -83,7 +83,6 @@ def display_scenario(scen, title):
 def check_guess(choice):
     st.session_state.guessed = True
     correct = st.session_state.correct
-        
     # Calculate time-based score
     if st.session_state.round_start_time is not None:
         elapsed_time = time.time() - st.session_state.round_start_time
@@ -141,11 +140,13 @@ def check_guess(choice):
         st.session_state.game_over = True
         st.session_state.game_won = True
         st.session_state.winning_streak += 1
+        st.rerun()
     
     # Check if game is complete (only if score < WINNING_SCORE)
     elif st.session_state.games_played >= TOTAL_ROUNDS:
         st.session_state.game_over = True
         st.session_state.game_won = False
+        st.rerun()
             
 # Streamlit app
 st.markdown("<h1 class='game-title'>🚗 Pick the Safer Road Game 🏁</h1>", unsafe_allow_html=True)
@@ -195,6 +196,8 @@ def start_game():
     st.session_state.pred2 = pred2
     st.session_state.correct = 1 if pred1 < pred2 else 2
     st.session_state.guessed = False
+    
+    # print(f"🎯 ROUND {st.session_state.games_played} - CORRECT ANSWER: ROAD {st.session_state.correct} | Pred1: {pred1:.2f}, Pred2: {pred2:.2f}")
 
 # Display score and round info
 col1, col2, col3, col4 = st.columns(4)
@@ -263,7 +266,7 @@ else:
         st.session_state.games_played += 1
         st.rerun()
     
-if 'scenario1' in st.session_state and st.session_state.scenario1 is not None:
+if 'scenario1' in st.session_state and st.session_state.scenario1 is not None and not st.session_state.game_over:
     st.markdown("### 🚀 CHOOSE YOUR PATH 🚀")
     col1, col2 = st.columns(2)
     
@@ -283,7 +286,8 @@ if 'scenario1' in st.session_state and st.session_state.scenario1 is not None:
     
     if st.session_state.guessed:
         st.markdown("---")
-        if st.session_state.games_played < TOTAL_ROUNDS:
+        if st.session_state.games_played < TOTAL_ROUNDS and not st.session_state.game_won:
+            # Not the last round - show "PLAY AGAIN" button
             col1, col2 = st.columns([1, 1])
             with col1:
                 if st.button("🔄 PLAY AGAIN 🔄", key="play_again", 
@@ -297,8 +301,13 @@ if 'scenario1' in st.session_state and st.session_state.scenario1 is not None:
                             help="End current game", use_container_width=True):
                     st.session_state.game_over = True
                     st.rerun()
-        else:
-            st.info("🎮 All 10 rounds completed! Check your final score above.")
+        elif st.session_state.games_played >= TOTAL_ROUNDS and not st.session_state.game_won:
+            # Last round - show EVALUATE button
+            st.markdown("### 🎯 All Rounds Complete!")
+            if st.button("📊 EVALUATE RESULTS 📊", key="evaluate", 
+                        help="Click to see your final results!", use_container_width=True):
+                st.session_state.game_over = True
+                st.rerun()
 
 st.markdown("---")
 st.markdown("""
