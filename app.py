@@ -5,7 +5,7 @@ from data import Categories
 import time
 
 # Page config
-st.set_page_config(page_title="🚗 Road Safety Game", page_icon="🚗", layout="wide")
+st.set_page_config(page_title="Road Safety Game", page_icon="🚗", layout="wide")
 
 # Custom CSS for better styling
 st.markdown("""
