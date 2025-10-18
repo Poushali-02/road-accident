@@ -185,7 +185,7 @@ def start_game():
         pred1 = prediction(preprocess(scenario1))
         pred2 = prediction(preprocess(scenario2))
 
-        if abs(pred1 - pred2) > 0.2:
+        if abs(pred1 - pred2) > 0.1:
             break
     
     # Store in session state
