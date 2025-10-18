@@ -322,7 +322,3 @@ START → Generate 2 Scenarios → User Sees Roads → Timer Runs
 ---
 
 **Enjoy the game! Test your road safety intuition! 🚗🎮**
-
-
-
-check
